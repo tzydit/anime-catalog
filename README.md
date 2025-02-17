@@ -1,7 +1,5 @@
 # AnimeCatalog
 
-![AnimeCatalog]
-
 ## 📌 Sobre o Projeto
 O **AnimeCatalog** é um site desenvolvido com **Next.js**, **Firebase** e **Tailwind CSS** que permite aos usuários explorar animes, avaliar séries e gerenciar seu perfil. O objetivo é criar um espaço intuitivo para fãs de anime compartilharem suas experiências e descobrirem novas obras.
 
