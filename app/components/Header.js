@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { auth } from "../lib/firebaseConfig";
 import { onAuthStateChanged } from "firebase/auth";
 import { UserCircleIcon } from "@heroicons/react/24/solid";
@@ -11,6 +11,7 @@ export default function Header() {
   const router = useRouter();
   const [search, setSearch] = useState("");
   const [user, setUser] = useState(null);
+  const anime = useState(null);
 
   useEffect(() => {
     onAuthStateChanged(auth, (currentUser) => {
@@ -18,12 +19,26 @@ export default function Header() {
     });
   }, []);
 
-  const handleSearch = (e) => {
+  const handleSearch = async (e) => {
     e.preventDefault();
-    if (search.trim()) {
-      router.push(`/search?q=${search.trim()}`);
+    if (!search.trim()) return;
+  
+    try {
+      const response = await fetch(`https://api.jikan.moe/v4/anime?q=${encodeURIComponent(search)}&limit=1`);
+      const data = await response.json();
+  
+      if (data.data.length > 0) {
+        const animeId = data.data[0].mal_id; 
+        router.push(`/anime/${animeId}`); 
+      } else {
+        alert("Nenhum anime encontrado. Tente outro nome!");
+      }
+    } catch (error) {
+      console.error("Erro ao buscar anime:", error);
     }
   };
+  
+  
 
   return (
     <header className="bg-gray-900 text-white shadow-md py-8 w-full top-0 z-50">

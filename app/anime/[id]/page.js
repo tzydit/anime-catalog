@@ -33,7 +33,7 @@ export default function AnimePage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white p-6">
+    <div className="bg-gray-900 text-white min-h-screen">
       <Header />
 
       <h1 className="text-4xl font-bold text-center mt-6">{anime.title}</h1>
