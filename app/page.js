@@ -3,13 +3,14 @@
 import { useEffect, useState } from "react";
 import { fetchAnimes } from "./lib/fetchAnimes";
 import Header from "./components/Header";
+import Link from "next/link";
 
 export default function Home() {
   const [weeklyAnimes, setWeeklyAnimes] = useState([]);
   const [yearlyAnimes, setYearlyAnimes] = useState([]);
   const [allTimeAnimes, setAllTimeAnimes] = useState([]);
   const [loading, setLoading] = useState(true);
-
+  
   useEffect(() => {
     async function loadAnimes() {
       setLoading(true);
@@ -53,13 +54,15 @@ function Section({ title, animes }) {
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
           {animes.map((anime) => (
             <div key={anime.mal_id} className="bg-gray-800 rounded-xl overflow-hidden shadow-lg transform transition duration-300 hover:scale-105 hover:shadow-2xl">
-              <div className="relative w-full h-64">
-                <img
-                  src={anime.images.jpg.image_url}
-                  alt={anime.title}
-                  className="absolute inset-0 w-full h-full object-contain rounded-t-xl"
-                />
-              </div>
+              <Link href={`/anime/${anime.mal_id}`} passHref>
+                <div className="relative w-full h-64 cursor-pointer">
+                  <img
+                    src={anime.images.jpg.image_url}
+                    alt={anime.title}
+                    className="absolute inset-0 w-full h-full object-cover rounded-t-xl"
+                  />
+                </div>
+              </Link>
               <div className="p-4 text-center">
                 <h2 className="text-lg font-semibold text-white truncate">{anime.title}</h2>
                 <p className="text-sm text-gray-400 mt-1">⭐ {anime.score}</p>

@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { auth } from "../lib/firebaseConfig";
 import { onAuthStateChanged } from "firebase/auth";
 import { UserCircleIcon } from "@heroicons/react/24/solid";
+import Link from "next/link";
 
 export default function Header() {
   const router = useRouter();
@@ -27,12 +28,10 @@ export default function Header() {
   return (
     <header className="bg-gray-900 text-white shadow-md py-8 w-full top-0 z-50">
       <div className="max-w-7xl mx-auto flex items-center justify-between px-6">
-        {/* Logo */}
         <h1 className="text-3xl font-bold">
-          <span className="text-blue-400">Anime</span>Catalog
+          <Link href="/"><span className="text-blue-400">Anime</span>Catalog</Link>
         </h1>
 
-        {/* Caixa de Pesquisa */}
         <form onSubmit={handleSearch} className="flex-grow max-w-md mx-auto">
           <input
             type="text"
